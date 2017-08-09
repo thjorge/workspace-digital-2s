@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="corpo">
+
+		<p:panel header="Lista de Usuários" toggleable="true">
+			<h:form>
+				<p:outputLabel value="Nome" for="nome" />
+				<p:autoComplete completeMethod="#{usuarioBean.completarPorNome}"
+					id="nome" value="#{usuarioBean.nome}" />
+				<p:commandButton update="tabela" value="Buscar"
+					action="#{usuarioBean.buscaPorNome()}" />
+			</h:form>
+			<p:growl autoUpdate="true" />
+			<p:dataTable id="tabela" var="user" value="#{usuarioBean.lista}"
+				paginator="true" rows="5" paginatorPosition="bottom">
+				<p:column headerText="ID" sortBy="#{user.codigo}">
+					<h:outputText value="#{user.codigo}" />
+				</p:column>
+				<p:column headerText="Nome" sortBy="#{user.nome}">
+					<h:outputText value="#{user.nome}" />
+				</p:column>
+				<p:column headerText="CPF" sortBy="#{user.cpf}">
+					<h:outputText value="#{user.cpf}" />
+				</p:column>
+				<p:column headerText="Data Nascimento"
+					sortBy="#{user.dataNascimento}">
+					<h:outputText value="#{user.dataNascimento.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Nível" sortBy="#{user.nivel}">
+					<p:rating value="#{user.nivel}" readonly="true" stars="7" />
+				</p:column>
+				<p:column>
+					<p:commandButton icon="ui-ico-trash"
+						onclick="PF('confirmation').show()">
+						<f:setPropertyActionListener value="#{user.codigo}"
+							target="#{usuarioBean.codigo}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-pencil" action="usuario">
+						<f:setPropertyActionListener value="#{user}"
+							target="#{usuarioBean.usuario}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			<p:confirmDialog id="confirmDialog"
+				message="Deseja excluir o usuario?" header="Confirme"
+				severity="alert" widgetVar="confirmation">
+
+				<p:commandButton value="Sim" oncomplete="PF('confirmation').hide()"
+					actionListener="#{usuarioBean.excluir}" update="tabela" />
+
+				<p:commandButton value="Não" onclick="PF('confirmation').hide()"
+					type="button" />
+			</p:confirmDialog>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>
