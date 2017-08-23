@@ -16,7 +16,7 @@ public class EntityManagerFactorySingleton {
 		if (fabrica == null){
 			//Inicializa a fabrica
 			fabrica = Persistence
-				.createEntityManagerFactory("KENZO_RM76801");
+				.createEntityManagerFactory("CLIENTE_ORACLE");
 		}
 		return fabrica;
 	}

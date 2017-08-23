@@ -7,13 +7,14 @@ import br.com.fiap.entity.Usuario;
 public interface UsuarioDAO 
 					extends GenericDAO<Usuario, Integer>{
 
-	long contarPorMesAniversario(int mes);
-	
-	long buscarPorNivel(int nivel);
-
 	List<Usuario> buscarPorNome(String nome);
 
 	List<String> completarPorNome(String texto);
 	
+	long buscarPorNivel(int nivel);
+	
+	long contarPorMesAniversario(int mes);
 	
 }
+
+

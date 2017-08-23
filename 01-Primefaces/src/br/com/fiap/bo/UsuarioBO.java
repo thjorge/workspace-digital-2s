@@ -13,30 +13,27 @@ import br.com.fiap.factory.EntityManagerFactorySingleton;
 
 public class UsuarioBO {
 
-	private EntityManagerFactory fabrica = 
-			EntityManagerFactorySingleton.getInstance();
+	private EntityManagerFactory fabrica = EntityManagerFactorySingleton.getInstance();
 	
-	
-	public long contarPorMesAniversario(int mes){
+	public long contarPorMes(int mes){
 		UsuarioDAO dao = new UsuarioDAOImpl(fabrica.createEntityManager());
 		return dao.contarPorMesAniversario(mes);
 	}
 	
-	
 	public long contarUsuarioPorNivel(int nivel){
-		UsuarioDAO dao = new UsuarioDAOImpl(fabrica.createEntityManager());
+		UsuarioDAO dao = 
+				new UsuarioDAOImpl(fabrica.createEntityManager());
 		return dao.buscarPorNivel(nivel);
 	}
-	
-	public List<Usuario> listar(){
+
+	public List<Usuario> listar() {
 		EntityManager em = fabrica.createEntityManager();
 		UsuarioDAO dao = new UsuarioDAOImpl(em);
 		List<Usuario> lista = dao.listar();
 		em.close();
 		return lista;
 	}
-	
-	
+
 	public Usuario buscar(int codigo) {
 		EntityManager em = fabrica.createEntityManager();
 		UsuarioDAO dao = new UsuarioDAOImpl(em);
@@ -54,7 +51,7 @@ public class UsuarioBO {
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new DBException(e.getMessage());
-		}finally {
+		} finally {
 			em.close();
 		}
 	}
@@ -68,7 +65,7 @@ public class UsuarioBO {
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new DBException(e.getMessage());
-		}finally {
+		} finally {
 			em.close();
 		}
 	}
@@ -87,21 +84,20 @@ public class UsuarioBO {
 		}
 	}
 
-
 	public List<Usuario> buscarPorNome(String nome) {
-		EntityManager em = fabrica.createEntityManager();
-		UsuarioDAO dao = new UsuarioDAOImpl(em);
-		
+		UsuarioDAO dao = new UsuarioDAOImpl(EntityManagerFactorySingleton.getInstance().createEntityManager());
 		return dao.buscarPorNome(nome);
 	}
 
-
 	public List<String> completarPorNome(String texto) {
-		EntityManager em = fabrica.createEntityManager();
-		UsuarioDAO dao = new UsuarioDAOImpl(em);
+		UsuarioDAO dao = new UsuarioDAOImpl(EntityManagerFactorySingleton
+				.getInstance().createEntityManager());
 		return dao.completarPorNome(texto);
 	}
 	
 	
-	
+
 }
+
+
+
