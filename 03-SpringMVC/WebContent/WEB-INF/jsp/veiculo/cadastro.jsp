@@ -1,31 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
-<tags:templete titulo="Cadastro de Veículo">
-	<h4><br>Cadastro</h4>
-	<form action="cadastrar" method="post">
-	<div>
-		<label for="id-marca">Marca</label>
-		<input type="text" name="marca" id="id-marca" class="form-control">
-	</div>
-	<div>
-		<label for="id-modelo">Modelo</label>
-		<input type="text" name="modelo" id="id-modelo" class="form-control">
-	</div>
-	<div>
-		<label for="id-ano">Ano</label>
-		<input type="text" name="ano" id="id-ano" class="form-control">
-	</div>
-	<div>
-		<label for="id-placa">Placa</label>
-		<input type="text" name="placa" id="id-placa" class="form-control">
-	</div>
-	<div>
-		<label for="id-cor">Cor</label>
-		<input type="text" name="cor" id="id-cor" class="form-control">
-	</div>
-	</br>
-	<input type="submit" value="Cadastrar" class="btn btn-success">
-	<input type="reset" value="Limpar" class="btn btn-dark">
-	</form>
-</tags:templete>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+<tags:template titulo="Cadastro de Veículo">
+	<jsp:attribute name="script">
+		<p>Aqui entra os javascripts...</p>
+	</jsp:attribute>
+	<jsp:body>
+		<h1>Cadastro</h1>
+		<c:url value="/veiculo/cadastrar" var="action" />
+		<form:form action="${action}" method="post" commandName="veiculo">
+			<div class="form-group">
+				<form:label path="marca">Marca</form:label>
+				<form:input path="marca" cssClass="form-control" />
+				<form:errors path="marca" cssClass="text-danger" />
+			</div>	
+			<div class="form-group">
+				<form:label path="modelo">Modelo</form:label>
+				<form:input path="modelo" cssClass="form-control" />
+				<form:errors path="modelo" cssClass="text-danger" />
+			</div>			
+			<div class="form-group">
+				<form:label path="ano">Ano</form:label>
+				<form:input path="ano" cssClass="form-control" />
+				<form:errors path="ano" cssClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<form:label path="placa">Placa</form:label>
+				<form:input path="placa" cssClass="form-control" />
+				<form:errors path="placa" cssClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<form:label path="cor">Cor</form:label>
+				<form:input path="cor" cssClass="form-control" />
+				<form:errors path="cor" cssClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<form:label path="dataFabricacao">Data Fabricação</form:label>
+				<form:input path="dataFabricacao" cssClass="form-control" />
+				<form:errors path="dataFabricacao" cssClass="text-danger" />
+			</div>
+			<input type="submit" value="Salvar" class="btn btn-primary">
+		</form:form>
+	</jsp:body>
+</tags:template>
